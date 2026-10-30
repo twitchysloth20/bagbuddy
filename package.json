@@ -1,0 +1,32 @@
+{
+  "name": "bagbuddy",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "[ -f .env ] || cp .env.example .env; pnpm supabase:start && concurrently -n api,web -c blue,green \"pnpm --filter @bagbuddy/api dev\" \"pnpm --filter @bagbuddy/web dev\"",
+    "supabase:start": "supabase start && ./scripts/create-test-db.sh",
+    "supabase:stop": "supabase stop",
+    "lint": "eslint .",
+    "typecheck": "pnpm -r typecheck",
+    "prisma": "pnpm --filter @bagbuddy/api prisma",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @bagbuddy/web test:e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "concurrently": "^10.0.6",
+    "eslint": "^10.13.0",
+    "eslint-plugin-vue": "^10.12.0",
+    "globals": "^17.13.0",
+    "supabase": "^2.122.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.0.5",
+    "vue-eslint-parser": "^10.4.1"
+  }
+}

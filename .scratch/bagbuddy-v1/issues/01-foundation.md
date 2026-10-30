@@ -1,6 +1,6 @@
 # 01 Foundation
 
-Status: needs-triage
+Status: ready-for-agent
 Type: task
 
 Monorepo, tooling and local environment. See `../spec.md`.
@@ -19,3 +19,9 @@ Monorepo, tooling and local environment. See `../spec.md`.
 - CI runs on a PR and is green.
 
 ## Comments
+
+### Implementation notes (2026-10-30)
+- Verified locally: lint, typecheck, 7 unit tests (shared i18n resolver/translator, web App render, API `/api/health`), `pnpm dev` brings up all Supabase containers + API + web, `/api` proxy works, `bagbuddy_test` DB exists, Prisma connects, Playwright smoke test passes (run with `PW_CHANNEL=chrome` on hosts Playwright doesn't support).
+- Not yet verified: CI on a real PR (commit `pnpm-lock.yaml`; CI uses `--frozen-lockfile`).
+- Decisions: ESLint-only (flat config + `@stylistic`), no Prettier. TypeScript pinned to ~5.9 (vue-tsc doesn't support 7). pnpm 11 needs `allowBuilds` in `pnpm-workspace.yaml`.
+- Local dev gotcha: Docker needs several GB of free disk write throughput on first `supabase start` (image extraction); slow SSDs can make "starting database" look hung.
